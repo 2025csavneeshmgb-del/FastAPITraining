@@ -2,10 +2,11 @@
 from fastapi import FastAPI
 from app.config import settings
 from app.database import ping_database
+from app.routers import users
 
 # Creates a FastAPI instance with the app name from the settings
 app = FastAPI(title=settings.APP_NAME)
-
+app.include_router(users.router)  # Includes the users router for handling user-related endpoints
 # This function runs once when the server starts up. It checks if the MongoDB connection is alive and raises an error if not.
 @app.on_event("startup")
 def startup() -> None:
