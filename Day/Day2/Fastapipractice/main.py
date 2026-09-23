@@ -11,8 +11,9 @@ def about():
     return {"page": "About","author": "Ayaan"}
 
 @app.get("/health")
-def health():
-    return {"status": "ok"}
+async def health():
+    result = await db.command("ping")
+    return {"mongodb" : "Connected", "ping" : result["ok"]}
 
 #POST request
 @app.post("/create")
